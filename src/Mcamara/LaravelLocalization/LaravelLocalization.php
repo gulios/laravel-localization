@@ -648,7 +648,11 @@ class LaravelLocalization
             elseif ($value instanceOf UrlRoutable) {
                 $value = $value->getRouteKey();
             }
-            $route = str_replace(array('{'.$key.'}', '{'.$key.'?}'), $value, $route);
+            $route = str_replace(
+                ['{' . $key . '}', '{' . $key . '?}'],
+                (string) ($value ?? ''),
+                $route
+            );
         }
 
         // delete empty optional arguments that are not in the $attributes array
